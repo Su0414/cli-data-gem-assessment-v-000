@@ -1,0 +1,5 @@
+#!/usr/bin/env ruby
+
+require "./lib/postgame_stories"
+
+PostgameStories::CLI.new.call
