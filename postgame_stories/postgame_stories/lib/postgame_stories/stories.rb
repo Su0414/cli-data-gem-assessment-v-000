@@ -1,5 +1,5 @@
 class PostgameStories::Stories
-  attr_accessor :title, :description, :link
+  attr_accessor :title, :description, :link, :sport
 
   @@stories = []
 
@@ -11,8 +11,19 @@ class PostgameStories::Stories
     @@stories
   end
 
+
   def self.destroy
     @@stories = []
   end
 
-end 
+  # refactor - find by sport name
+  def self.find_by_sport(sporturl)
+      sport = sporturl.split('/').last.upcase
+      @@stories.select do |story|
+        if story.sport == sport
+          true
+        end
+      end
+
+    end
+end

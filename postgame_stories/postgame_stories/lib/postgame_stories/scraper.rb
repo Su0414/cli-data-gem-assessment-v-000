@@ -27,8 +27,10 @@ class PostgameStories::Scraper
           stories.title = story.css("h2").text
           stories.description = story.css("p").text
           stories.link = story.css("span").text
+          # refactor
+          stories.sport = sports_url.split('/').last.upcase
         stories.save
       end
   end
 
-end 
+end
