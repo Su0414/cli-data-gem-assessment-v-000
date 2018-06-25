@@ -14,8 +14,8 @@ class PostgameStories::Scraper
             sports.sport_url = sport.attribute("href").text
           sports.save
         end
+      end
 
-            
   end
 
   def self.scrape_stories_details(sports_url)
