@@ -18,7 +18,7 @@ class PostgameStories::CLI
          input = nil
           while input != "exit"
 
-            PostgameStories::Sports.all.uniq.each.with_index(1) do |sport, index|
+            PostgameStories::Sports.all.each.with_index(1) do |sport, index|
               puts "#{index}. #{sport.name}"
             end
 
