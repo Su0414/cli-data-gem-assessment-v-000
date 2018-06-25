@@ -42,13 +42,24 @@ class PostgameStories::CLI
      end
 
      def display_sports_stories(name)
-     PostgameStories::Stories.destroy
-     PostgameStories::Scraper.scrape_stories_details(BASE_PATH + "/tag/" + name.downcase)
+       # if stories about this sport exist, display them
+       # otherwise, scrape and then display them
+       sporturl = BASE_PATH + "/tag/" + name.downcase
+       stories = PostgameStories::Stories.find_by_sport(sporturl)
+
+       if stories == []
+         PostgameStories::Scraper.scrape_stories_details(BASE_PATH + "/tag/" + name.downcase)
+         stories = PostgameStories::Stories.find_by_sport(sporturl)
+       end
+
+
+    #  PostgameStories::Stories.destroy
+    #  PostgameStories::Scraper.scrape_stories_details(BASE_PATH + "/tag/" + name.downcase)
 
        puts "________________________________________________________________________________________________________".colorize(:green)
        puts " LATEST #{name} STORIES ".colorize(:green)
        puts "________________________________________________________________________________________________________".colorize(:green)
-     PostgameStories::Stories.all.each.with_index(1) do |story, index|
+     stories.each.with_index(1) do |story, index|
        puts " Title       :".colorize(:green) + " #{story.title}"
        puts " Description :".colorize(:green) + "#{story.description}"
        puts " Link        :".colorize(:green) + " #{story.link}".colorize(:blue)

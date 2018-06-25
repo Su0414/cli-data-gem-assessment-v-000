@@ -15,20 +15,31 @@ class PostgameStories::Scraper
           sports.save
         end
 
+        doc.css('div.item-list ul li').each do |story|
+
+              stories  = PostgameStories::Stories.new
+                stories.title = story.css("h2").text
+                stories.description = story.css("p").text
+                stories.link = story.css("span").text
+                stories.sport = sports_url.split('/').last.upcase
+              stories.save
+            end
+
       end
   end
 
-  def self.scrape_stories_details(sports_url)
-    doc1 = Nokogiri::HTML(open(sports_url))
+  # def self.scrape_stories_details(sports_url)
+  #   doc1 = Nokogiri::HTML(open(sports_url))
+  #
+  #     doc1.css('div.item-list ul li').each do |story|
+  #
+  #       stories  = PostgameStories::Stories.new
+  #         stories.title = story.css("h2").text
+  #         stories.description = story.css("p").text
+  #         stories.link = story.css("span").text
+  #         stories.sport = sports_url.split('/').last.upcase
+  #       stories.save
+  #     end
+  # end
 
-      doc1.css('div.item-list ul li').each do |story|
-
-        stories  = PostgameStories::Stories.new
-          stories.title = story.css("h2").text
-          stories.description = story.css("p").text
-          stories.link = story.css("span").text
-        stories.save
-      end
-  end
-
-end 
+end
