@@ -48,7 +48,8 @@ class PostgameStories::CLI
        stories = PostgameStories::Stories.find_by_sport(sporturl)
 
        if stories == []
-         PostgameStories::Scraper.scrape_stories_details(BASE_PATH + "/tag/" + name.downcase)
+         #PostgameStories::Scraper.scrape_stories_details(BASE_PATH + "/tag/" + name.downcase)
+         PostgameStories::Scraper.scrape_menu(BASE_PATH + "/tag/" + name.downcase)
          stories = PostgameStories::Stories.find_by_sport(sporturl)
        end
 
